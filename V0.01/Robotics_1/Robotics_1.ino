@@ -52,7 +52,7 @@ void setup()
   pinMode(M1_Fw, OUTPUT); pinMode(M2_Fw, OUTPUT); pinMode(M3_Fw, OUTPUT); pinMode(M4_Fw, OUTPUT);
   pinMode(M1_Bw, OUTPUT); pinMode(M2_Bw, OUTPUT); pinMode(M3_Bw, OUTPUT); pinMode(M4_Bw, OUTPUT);
   
-  while (start = 0)  //Wait until start flag raised
+  while (start == 0)  //Wait until start flag raised
   {
     start =  digitalRead(startPin); //Keep checking start pin, and raise flag when high
   }
