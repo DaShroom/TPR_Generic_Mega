@@ -20,6 +20,8 @@
 #include <avr/interrupt.h>
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 uint8_t dir = 5;
+uint8_t headl;
+uintt_headm;
 uint16_t head;
 uint16_t starthead;
 
@@ -219,39 +221,42 @@ void GetDir()
 }
 
 void GetHead()
-TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN); //Start
-while ((TWCR & (1<<TWINT)) == 0);
-if ((TWSR & 0xF8) != 0x08) //Val
-error();
+{
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN); //Start
+	while ((TWCR & (1<<TWINT)) == 0);
+	if ((TWSR & 0xF8) != 0x08) //Val
+	error();
 
-TWDR = (0x42 >> 7); //Addr
-TWCR = (1<<TWINT)|(1<<TWEN);
-while ((TWCR & (1<<TWINT)) == 0);
-if ((TWSR & 0xF8) != 0x18) //Val
-error();
+	TWDR = (0x42 >> 7); //Addr
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	while ((TWCR & (1<<TWINT)) == 0);
+	if ((TWSR & 0xF8) != 0x18) //Val
+	error();
 
-TWDR = "A"; //Job -- TODO
-TWCR = (1<<TWINT)|(1<<TWEN);
-while ((TWCR & (1<<TWINT)) == 0);
-if ((TWSR & 0xF8) != 0x28) //Val
-error();
+	TWDR = "A"; //Job -- TODO
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	while ((TWCR & (1<<TWINT)) == 0);
+	if ((TWSR & 0xF8) != 0x28) //Val
+	error();
 
-TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN); //Start
-while ((TWCR & (1<<TWINT)) == 0);
-if ((TWSR & 0xF8) != 0x10) //Val
-error();
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN); //Start
+	while ((TWCR & (1<<TWINT)) == 0);
+	if ((TWSR & 0xF8) != 0x10) //Val
+	error();
 
-TWDR = ((0x10 >> 7) | 1); //Addr Read
-TWCR = (1<<TWINT)|(1<<TWEN);
-while ((TWCR & (1<<TWINT)) == 0);
-if ((TWSR & 0xF8) != 0x40) //Val
-error();
+	TWDR = ((0x10 >> 7) | 1); //Addr Read
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	while ((TWCR & (1<<TWINT)) == 0);
+	if ((TWSR & 0xF8) != 0x40) //Val
+	error();
 
-TWCR = (1<<TWINT)|(1<<TWEN); //Read Dir
-while ((TWCR & (1<<TWINT)) == 0);
-dir = TWDR;
-if ((TWSR & 0xF8) != 0x58) //Val
-error();
+	TWCR = (1<<TWINT)|(1<<TWEN); //Read Dir
+	while ((TWCR & (1<<TWINT)) == 0);
+	dir = TWDR;
+	if ((TWSR & 0xF8) != 0x58) //Val
+	error();
+
+	head = ((headm << 8) | (headl))
 }
 
 void HouseKeep()
