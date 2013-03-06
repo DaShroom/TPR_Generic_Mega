@@ -1,7 +1,7 @@
 /*
  * TPRSang1.c
  *
- * The ACTUAL program (not finished) we will be using, for now
+ * The preliminary program that the ACTUAL program will take inspiration from
  * Licensed under CC-By Sa
  *
  * Created: 21/08/2012 21:16:04
@@ -21,7 +21,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 uint8_t dir = 5;
 uint8_t headl;
-uintt_headm;
+uint8_t headm;
 uint16_t head;
 uint16_t starthead;
 
